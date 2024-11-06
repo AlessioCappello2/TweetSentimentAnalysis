@@ -1,5 +1,5 @@
 # Tweet Sentiment Analysis
-Tiny application that allows you to retrieve tweets about a specific topic to see how people are feeling about it.
+Tiny application that allows you to retrieve tweets about a specific topic to see how people are feeling about it. A RoBERTa model finetuned on tweets is employed to perform sentiment analysis.
 
 ## Dependencies
 The application is based on open source packages to retrieve tweets, preprocess them and output the sentiment. It works, but you never know due to X (formerly Twitter) policies and unofficial API instability. 😔
