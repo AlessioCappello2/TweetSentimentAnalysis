@@ -2,18 +2,18 @@
 Tiny application that allows you to retrieve tweets about a specific topic to see how people are feeling about it.
 
 ## Dependencies
-The application is based on open source packages to retrieve tweets, preprocess them and output the sentiment. Hopefully it works, but due to X (formerly Twitter) policies and unofficial API instability, you never know. Again, open source packages: I relied on them since it's a personal project. 
+The application is based on open source packages to retrieve tweets, preprocess them and output the sentiment. It works, but you never know due to X (formerly Twitter) policies and unofficial API instability. 😔
 
 The dependencies can be installed by launching the application with the argument ```--reqs```.
 
 ### [twikit](https://github.com/d60/twikit)
-Twikit is an open source library that allows interacting with the Twitter API.
+Twikit is an open source library that allows interaction with the Twitter API.
 ```
 pip install twikit
 ```
 
 ### [nltk](https://github.com/nltk/nltk)
-Natural Language ToolKit (shortly, nltk) is suite of open source Python modules, data sets, and tutorials supporting research and development in Natural Language Processing.
+Natural Language ToolKit (shortly, nltk) is a suite of open source Python modules, data sets, and tutorials supporting research and development in Natural Language Processing.
 ```
 pip install nltk
 ```
@@ -26,16 +26,16 @@ pip install transformers
 ```
 
 ### [deep_translator](https://github.com/nidhaloff/deep-translator)
-Deep_translator is a flexible tool to translate between different languages in a simple way using multiple translators.
+Deep_translator is a flexible tool that can translate between different languages in a simple way using multiple translators.
 ```
 pip install deep-translator
 ```
 
 ## Configure user credentials
-Modify ```config.ini``` in order to run the application properly: put your username, email and password (run it locally, do not share with anyone). I suggest using a secondary account since it is possible that X may track the activity related to the account as suspicious and ban it.
+Modify ```config.ini``` in order to run the application properly: put your username, email and password (run it locally, do not share it with anyone). I suggest using a secondary account since X may track the activity related to the account as suspicious and ban it.
 
 ## Usage
-To launch the application, activate your virtual environment and launch on command line:
+To launch the application, activate your virtual environment and launch on the command line:
 ```
 python main.py --topic TOPIC [--count COUNT] [--reqs]
 ```
