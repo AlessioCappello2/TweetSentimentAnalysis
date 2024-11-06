@@ -2,7 +2,7 @@ import subprocess
 import sys
 import argparse
 
-venv = sys.executable # used to launch a subprocess
+venv = str(sys.executable) # used to launch a subprocess
 
 parser = argparse.ArgumentParser(description="Script to retrieve tweets related to a topic and analyze the authors' sentiments")
 
@@ -21,16 +21,17 @@ parser.add_argument(
 )
 
 parser.add_argument(
-    '--nltkreqs',
+    '--reqs',
     action='store_true',
-    help='Optional flag to indicate whether it is necessary to download nltk resources (default: True, use --no-nltkreqs to skip).'
+    help='Optional flag to indicate whether it is necessary to download dependencies and nltk resources (default: True, use --no-reqs to skip).'
 )
 
 args = parser.parse_args()
 
-if args.nltkreqs:
-    subprocess.run([str(venv), 'src/nltk_reqs.py'], check=True)
+if args.reqs:
+    subprocess.run([venv, 'src/requirements.py'], check=True)
+    subprocess.run([venv, 'src/nltk_reqs.py'], check=True)
 
-subprocess.run([str(venv), 'src/tweets_retrieval.py', args.topic, str(args.count)], check=True)
-subprocess.run([str(venv), 'src/preprocess_tweets.py'], check=True)
-subprocess.run([str(venv), 'src/sentiment_analysis.py'], check=True)
+subprocess.run([venv, 'src/tweets_retrieval.py', args.topic, str(args.count)], check=True)
+subprocess.run([venv, 'src/preprocess_tweets.py'], check=True)
+subprocess.run([venv, 'src/sentiment_analysis.py'], check=True)

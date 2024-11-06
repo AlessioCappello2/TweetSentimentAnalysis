@@ -25,10 +25,10 @@ client = twikit.Client(language='en-US')
 
 # Async function for login (sync method deprecated with twikit upgrades)
 async def login():
-    try:
+    try: # if cookies.json is available, fine...
         client.load_cookies('cookies.json')
         print(f"Welcome back {username}!")
-    except FileNotFoundError:
+    except FileNotFoundError: # ...otherwise perform the login with credentials and save cookies for the next time
         await client.login(auth_info_1=username, auth_info_2=email, password=password)
         print("Successfully logged in!")
         client.save_cookies('cookies.json')

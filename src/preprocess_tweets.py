@@ -16,7 +16,7 @@ df = pd.read_csv("tweets/tweets.csv", encoding="utf-8")
 stop_words = set(stopwords.words('english'))
 
 def process_text(text):
-    # URLs and usernames removal
+    # URLs and usernames removal (one could argue to remove also hashtags)
     text = re.sub(r'https?://[^ ]+', '', text)
     text = re.sub(r'@[^ ]+', '', text)
     
