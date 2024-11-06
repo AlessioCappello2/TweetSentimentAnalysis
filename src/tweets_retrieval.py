@@ -2,16 +2,16 @@
 import twikit
 import time
 from datetime import datetime
-import csv
+import pandas as pd
 from configparser import ConfigParser
 from random import randint
 import asyncio
 import sys
 
 # Search criteria
+#QUERY = '(from:elonmusk) lang:en until:2020-01-01 since:2018-01-01' # example of query that can be passed as input
 QUERY = sys.argv[1]
 REQUIRED_TWEETS = int(sys.argv[2])
-#QUERY = '(from:elonmusk) lang:en until:2020-01-01 since:2018-01-01'
 
 # Login credentials
 config = ConfigParser()
@@ -44,8 +44,8 @@ async def get_tweets():
                 tweets = await client.search_tweet(QUERY, product='Latest')
             else:
                 tweets = await tweets.next()
-            waiting = randint(5, 10)
-            time.sleep(waiting)
+            waiting = randint(5, 10)  
+            time.sleep(waiting)  # used to emulate a human behavior 
         except twikit.TooManyRequests as e:
             rate_limit_reset = datetime.fromtimestamp(e.rate_limit_reset)
             print(f'{datetime.now()} - Rate limit reached. Waiting until {rate_limit_reset}')
@@ -61,9 +61,8 @@ async def get_tweets():
             count += 1
             tweet_data = [count, tweet.user.name, tweet.text, tweet.created_at, tweet.retweet_count, tweet.favorite_count]
 
-            with open('tweets.csv', 'a', newline='', encoding="utf-8") as file:
-                writer = csv.writer(file)
-                writer.writerow(tweet_data)
+            row = pd.DataFrame([tweet_data], columns=['Count', 'Username', 'Text', 'Created At', 'Retweets', 'Likes'])
+            row.to_csv('tweets/tweets.csv', mode='a', header=False, index=False, encoding="utf-8")
             
             if count == REQUIRED_TWEETS:
                 break
@@ -76,10 +75,9 @@ async def get_tweets():
 # Launch login function in an async event loop
 asyncio.run(login())
 
-# Create a csv to store the retrieved tweets
-with open('tweets.csv', 'w', newline='') as file:
-    writer = csv.writer(file)
-    writer.writerow(['Count', 'Username', 'Text', 'Created At', 'Retweets', 'Likes'])
+columns = ['Count', 'Username', 'Text', 'Created At', 'Retweets', 'Likes']
+df = pd.DataFrame(columns=columns)
+df.to_csv('tweets/tweets.csv', index=False)
 
-# Launch tweets retrieval
+# Launch tweets retrieval in an async event loop
 asyncio.run(get_tweets())
